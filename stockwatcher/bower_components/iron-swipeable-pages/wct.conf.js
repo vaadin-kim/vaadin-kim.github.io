@@ -1,0 +1,1 @@
+module.exports={verbose:!0,plugins:{local:{browsers:["chrome","firefox"]},sauce:{disabled:!0,browsers:["chrome","firefox"]}}};

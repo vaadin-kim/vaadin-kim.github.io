@@ -1,0 +1,8 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/sw-app.html",
+  "fragments": [
+    "src/sw-quotes.html",
+    "src/sw-portfolio.html"
+  ]
+}
