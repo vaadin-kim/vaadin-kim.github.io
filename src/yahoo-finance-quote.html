@@ -1,0 +1,11 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+</head><body><dom-module id="yahoo-finance-quote">
+    <template>
+        <iron-ajax id="query" url="https://jsonp.afeld.me/" handle-as="json" on-response="_handleResponse" debounce-duration="300" loading="{{loading}}" verbose=""></iron-ajax>
+    </template>
+    <script>Polymer({is:"yahoo-finance-quote",properties:{loading:{type:Boolean,notify:!0,value:!1}},_handleResponse:function(e){"error"!=e.type&&(e.stopPropagation(),this.fire("response",e.detail.response))},requestQuotes:function(e){var o=this.$.query;if(void 0!=o&&e.length>0){var t="http://finance.yahoo.com/webservice/v1/symbols/"+e.join(",")+"/quote?format=json&view=detail";o.params={url:t},o.generateRequest()}}});</script>
+</dom-module>
+
+</body></html>

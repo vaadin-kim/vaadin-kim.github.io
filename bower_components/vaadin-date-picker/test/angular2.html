@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../vaadin-date-picker.html">
+  <script src="common.js"></script>
+
+  
+  <script src="../node_modules/es6-shim/es6-shim.min.js"></script>
+  <script src="../node_modules/systemjs/dist/system.src.js"></script>
+  <script src="../node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="../node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="../node_modules/zone.js/dist/zone.js"></script>
+
+  
+  <script>document.addEventListener("WebComponentsReady",function(){var a=["core","common","compiler","platform-browser","platform-browser-dynamic"],n={};a.forEach(function(a){n["@angular/"+a]={main:"index.js"}}),n.app={format:"register",defaultExtension:"js"},n["@vaadin/angular2-polymer"]={main:"index.js"},System.config({map:{"@vaadin":"../node_modules/@vaadin","@angular":"../node_modules/@angular"},packages:n})});</script>
+</head>
+
+<body>
+
+  <test-fixture id="testapp">
+    <template>
+      <test-app>Loading...</test-app>
+    </template>
+  </test-fixture>
+
+  <script>describe("Angular 2",function(){var e,t;before(function(){return this.timeout(6e4),System["import"]("angular2/main.js")}),beforeEach(function(n){t=fixture("testapp"),t.addEventListener("readyForTests",function(t){e=t.detail,setTimeout(n,0)}),document.body.dispatchEvent(new CustomEvent("bootstrap"))}),describe("Data binding",function(){var n;beforeEach(function(){n=t.querySelector("vaadin-date-picker.bound")}),it("should have initial bound value",function(){expect(n.value).to.equal("2000-01-01")}),it("should change value on bound value change",function(){e.date="2001-01-01",e.detectChanges(),expect(n.value).to.equal("2001-01-01")}),it("should change bound value on value change",function(){n.value="2001-01-01",expect(e.date).to.equal("2001-01-01")})}),describe("Form field",function(){var e;beforeEach(function(){e=t.querySelector("form vaadin-date-picker")}),describe("initial state",function(){it("should be initially pristine",function(){expect(e.classList.contains("ng-pristine")).to.be["true"]}),it("should be initially untouched",function(){expect(e.classList.contains("ng-untouched")).to.be["true"]}),it("should be invalid",function(){expect(e.classList.contains("ng-invalid")).to.be["true"]}),it("should be an invalid form",function(){expect(e._form.valid).to.be["false"]}),it("should not reflect invalid state to datepicker initially",function(){expect(e.invalid).to.be["false"]})}),describe("after value has changed",function(){beforeEach(function(){e.value="2001-01-01"}),it("should be dirty on value change",function(){expect(e.classList.contains("ng-dirty")).to.be["true"]}),it("should be a valid form",function(){expect(e._form.valid).to.be["true"]}),it("should have correct date value",function(){expect(e._form.value.date).to.equal("2001-01-01")}),it("should be valid",function(){expect(e.classList.contains("ng-valid")).to.be["true"]}),it("should reflect invalid state to datepicker when value changed",function(t){e.value="",e.async(function(){expect(e.invalid).to.be["true"],t()},1)})}),it("should get touched on input blur",function(){Polymer.Base.fire("blur",{},{bubbles:!0,node:e.$.input}),expect(e.classList.contains("ng-touched")).to.be["true"]})})});</script>
+
+
+
+
+</body></html>

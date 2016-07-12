@@ -1,0 +1,53 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="two-way-toggle-button.html">
+<link rel="import" href="momentjs.html">
+
+</head><body><dom-module id="sw-portfolio-content">
+    <template>
+        <style>paper-dialog{width:90%;height:90%;}.form{background-color:#0a589b;display:flex;margin:0px !important;padding:18px !important;min-height:60px;}.form > *{color:#ffffff !important;margin-right:5px;}.form /deep/ input, .form /deep/ label{color:#ffffff !important;}.form /deep/ iron-icon{fill:#ffffff;}.form paper-button{background:#0c70c6;}.form /deep/ paper-input /deep/ input{text-transform:uppercase;}.form /deep/ paper-input /deep/ paper-input-error{color:#ffffff !important;}.container{display:flex;flex-direction:column;margin:0px !important;padding:0px !important;height:100%;}vaadin-grid{height:100%;}two-way-toggle-button{align-self:flex-end;margin-bottom:12px;}.buttons paper-button.left{position:absolute;left:0px;bottom:0px;}vaadin-grid /deep/ .buy-transaction{color:#006400;}vaadin-grid /deep/ .sell-transaction{color:#ff0000;}</style>
+        <paper-dialog opened="" modal="" id="dialog">
+            <div class="container">
+                <div class="form">
+                    <two-way-toggle-button left="Buy" right="Sell" id="buyOrSell"></two-way-toggle-button>
+                    <vaadin-date-picker label="Date" id="txDate"></vaadin-date-picker>
+                    <paper-input label="Symbol" maxlength="12" minlength="1" pattern="[a-ZA-Z0-9]" required="" error-message="Invalid stock symbol" id="symbol"></paper-input>
+                    <paper-input label="Price" maxlength="6" minlength="1" pattern="[0-9]*\.?[0-9]+" required="" error-message="Please enter a valid price" id="price"></paper-input>
+                    <paper-input label="Quantity" maxlength="6" minlength="1" pattern="[0-9]+" required="" error-message="Please enter a number" id="qty"></paper-input>
+                    <paper-button raised="" on-tap="_addTransaction">Add</paper-button>
+                </div>
+
+                <vaadin-grid id="portfolioGrid" items="{{tradeHistory}}" selection-mode="multi">
+                    <table>
+                        <colgroup>
+                            <col name="date">
+                            <col name="symbol">
+                            <col name="price">
+                            <col name="amount">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </vaadin-grid>
+                <div class="buttons">
+                    <paper-button on-tap="_remove" class="left">Remove Selected</paper-button>
+                    <paper-button on-tap="_close">Close</paper-button>
+                </div>
+            </div>
+        </paper-dialog>
+    </template>
+
+    <script>Polymer({is:"sw-portfolio-content",properties:{tradeHistory:{type:Array,value:function(){}}},ready:function(){this.$.txDate.required=!0,this.$.portfolioGrid.rowClassGenerator=function(t){return t.data.buy?"buy-transaction":"sell-transaction"}},_close:function(t){this.fire("close",this),t.stopPropagation()},_addTransaction:function(){function t(t,e){return moment(t.date,"YYYY-MM-DD").isBefore(moment(e.date,"YYYY-MM-DD"),"day")?-1:moment(t.date,"YYYY-MM-DD").isAfter(moment(e.date,"YYYY-MM-DD"),"day")?1:0}var e=!0;if(e=!(!this.$.txDate.validate()||!e),e=!(!this.$.symbol.validate()||!e),e=!(!this.$.price.validate()||!e),e=!(!this.$.qty.validate()||!e)){var i={symbol:this.$.symbol.value.toUpperCase(),buy:!this.$.buyOrSell.checked,amount:parseInt(this.$.qty.value),price:parseFloat(this.$.price.value),date:moment(this.$.txDate.value).format("YYYY-MM-DD")};this.push("tradeHistory",i),this.tradeHistory.sort(t),this.$.portfolioGrid.size=this.tradeHistory.length,this.$.portfolioGrid.refreshItems(),this.$.buyOrSell.checked=!1,this.$.txDate.value=void 0,this.$.symbol.value=void 0,this.$.price.value=void 0,this.$.qty.value=void 0,this.fire("transaction-updated",i)}},_remove:function(){var t=this.$.portfolioGrid.selection.selected();t.sort();for(var e=0;e<t.length;e++){this.$.portfolioGrid.selection.deselect(t[e]);var i=t[e]-e;this.splice("tradeHistory",i,1)}this.$.portfolioGrid.size=this.tradeHistory.length,this.$.portfolioGrid.refreshItems(),this.fire("transaction-updated",t)}});</script>
+</dom-module></body></html>
