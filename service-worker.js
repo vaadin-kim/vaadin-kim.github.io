@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","0fc977baabe843e858c7d6cde05986e7"],["/index.html","8a89d402983293decad0ceeff1c88411"],["/manifest.json","c9d145122f5d335ed9834fe3fc4ad339"],["/src/sw-app.html","03a06ad4b8116c9e2f6f5b99087306a9"],["/src/sw-portfolio.html","451fa1e669c175767c4fb2bfae4b9ec8"],["/src/sw-quotes.html","8e4b3d9cf9d82ffc6f160ce04a4e00b3"]];
+var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","0fc977baabe843e858c7d6cde05986e7"],["/index.html","ff904ffd02bbb45c0e49cbe7e30dbc58"],["/manifest.json","ebc8ede8835c40606f936408240efea3"],["/src/sw-app.html","03a06ad4b8116c9e2f6f5b99087306a9"],["/src/sw-portfolio.html","bb653791fb4c849070eef1c6a20b905b"],["/src/sw-quotes.html","8e4b3d9cf9d82ffc6f160ce04a4e00b3"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
