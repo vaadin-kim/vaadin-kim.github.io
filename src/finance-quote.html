@@ -1,0 +1,13 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="momentjs.html">
+
+</head><body><dom-module id="finance-quote">
+    <template>
+        <iron-ajax id="query" url="https://jsonp.afeld.me/" handle-as="json" on-response="_handleResponse" debounce-duration="300" loading="{{loading}}" verbose=""></iron-ajax>
+        <iron-localstorage id="quoteCacheStorage" name="sw-quote-cache" value="{{_quoteCache}}" on-iron-localstorage-load-empty="_initializeCache" on-iron-localstorage-load="_cacheCleanup"></iron-localstorage>
+    </template>
+    <script>Polymer({is:"finance-quote",properties:{loading:{type:Boolean,notify:!0,value:!1},_quoteCache:{type:Array,value:function(){return[]}},_localStorageLoaded:!1,_requestQueue:{type:Array,value:function(){return[]}}},_handleResponse:function(e){if("error"!=e.type){e.stopPropagation();var t=e.detail.response,a={symbol:t.Symbol,name:t.Name,value:parseFloat(t.LastPrice).toFixed(2),change:parseFloat(t.Change).toFixed(2),changePercent:parseFloat(t.ChangePercent).toFixed(2),lastUpdate:t.Timestamp},o=this._findCache(t.Symbol);void 0!=o?(o.timestamp=moment().format("x"),o.data=a):this.push("_quoteCache",{timestamp:moment().format("x"),data:a}),this.$.quoteCacheStorage.save(),this.fire("response",a)}},_initializeCache:function(){this._quoteCache=[]},_cacheCleanup:function(){for(var e=0;e<this._quoteCache.length;e++)moment().diff(moment(this._quoteCache[e].timestamp,"x"),"minutes")>5&&(this._quoteCache.remove(e),e--);this.$.quoteCacheStorage.save(),this._localStorageLoaded=!0,this._requestQueue.length>0&&this.requestQuotes(this._requestQueue)},_findCache:function(e){for(var t=0;t<this._quoteCache.length;t++)if(this._quoteCache[t].data.symbol==e)return this._quoteCache[t]},requestQuotes:function(e){if(!this._localStorageLoaded)return void(this._requestQueue=e);var t=this.$.query;if(void 0!=t&&e.length>0)for(var a=0;a<e.length;a++){var o=this._findCache(e[a]);void 0!=o&&moment().diff(moment(o.timestamp,"x"),"minutes")<5?this.fire("response",o.data):(t.params={url:"http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol="+e[a]},t.generateRequest())}}});</script>
+</dom-module>
+
+</body></html>
