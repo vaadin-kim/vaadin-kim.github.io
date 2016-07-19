@@ -3,9 +3,9 @@
 
 </head><body><dom-module id="finance-quote">
     <template>
-        <iron-ajax id="query" url="https://jsonp.afeld.me/" handle-as="json" on-response="_handleResponse" debounce-duration="300" loading="{{loading}}" verbose=""></iron-ajax>
+        <iron-ajax id="query" url="https://query.yahooapis.com/v1/public/yql" handle-as="json" on-response="_handleResponse" debounce-duration="300" loading="{{loading}}" verbose=""></iron-ajax>
     </template>
-    <script>Polymer({is:"finance-quote",properties:{loading:{type:Boolean,notify:!0,value:!1}},_handleResponse:function(e){if("error"!=e.type){e.stopPropagation();var o=e.detail.response;this.fire("response",o)}},requestQuotes:function(e){var o=this.$.query;void 0!=o&&e.length>0&&(o.params={url:"http://kim.app.fi/stock/fetch?symbols="+e.join(",")},o.generateRequest())}});</script>
+    <script>Polymer({is:"finance-quote",properties:{loading:{type:Boolean,notify:!0,value:!1}},_handleResponse:function(e){if("error"!=e.type){e.stopPropagation();var o=e.detail.response.query.results.json.json;this.fire("response",o)}},requestQuotes:function(e){var o=this.$.query;void 0!=o&&e.length>0&&(o.params={q:'select * from json where url="http://kim.app.fi/stock/fetch?symbols='+e.join(",")+'"',format:"json"},o.generateRequest())}});</script>
 </dom-module>
 
 </body></html>
