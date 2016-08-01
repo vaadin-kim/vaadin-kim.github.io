@@ -54,7 +54,7 @@
         </div>
       </div>
     </template>
-    <script>window.addEventListener("WebComponentsReady",function(){Polymer({is:"iron-location-demo",properties:{historyElementsAdded:{type:Number}},observers:["checkHistorySize(path, hash, query, startingHistoryLength)"],ready:function(){this.startingHistoryLength=window.history.length},checkHistorySize:function(){this.historyElementsAdded=window.history.length-this.startingHistoryLength},inSeconds:function(t){return t===-1?-1:Math.round(t/100)/10}})});</script>
+    <script>window.addEventListener("WebComponentsReady",function(){Polymer({is:"iron-location-demo",properties:{historyElementsAdded:{type:Number}},observers:["checkHistorySize(path, hash, query, startingHistoryLength)"],ready:function(){this.startingHistoryLength=window.history.length},checkHistorySize:function(){this.historyElementsAdded=window.history.length-this.startingHistoryLength},inSeconds:function(t){return-1===t?-1:Math.round(t/100)/10}})});</script>
   </dom-module>
 
   <iron-location-demo></iron-location-demo>

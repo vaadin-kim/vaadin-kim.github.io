@@ -1,1 +1,1 @@
-document.location.search.indexOf("dom=shadow")===-1&&(document.location.search+="&dom=shadow");
+-1===document.location.search.indexOf("dom=shadow")&&(document.location.search+="&dom=shadow");
