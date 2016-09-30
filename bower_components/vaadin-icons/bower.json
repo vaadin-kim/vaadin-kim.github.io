@@ -1,6 +1,6 @@
 {
   "name": "vaadin-icons",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "homepage": "https://github.com/vaadin/vaadin-icons",
   "authors": [
     "Vaadin Ltd"
@@ -16,7 +16,7 @@
   "description": "",
   "main": "vaadin-icons.html",
   "moduleType": [],
-  "license": "Apache-2.0",
+  "license": "",
   "ignore": [
     "**/.*",
     "node_modules",
