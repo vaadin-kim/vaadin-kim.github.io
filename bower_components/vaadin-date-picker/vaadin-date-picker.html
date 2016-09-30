@@ -42,6 +42,6 @@
     </iron-media-query>
   </template>
 
-  <script>Polymer({is:"vaadin-date-picker",behaviors:[vaadin.elements.datepicker.DatePickerBehavior],properties:{disabled:{type:Boolean,value:!1,reflectToAttribute:!0},readonly:{type:Boolean,value:!1,reflectToAttribute:!0}},_getValidity:function(){return this.inputElement.validate()},_clear:function(e){e.stopPropagation(),this.value="",this.close()},_toggle:function(e){e.stopPropagation(),this[this.$.dropdown.opened?"close":"open"]()},_tabindex:function(e){return e?-1:0},_input:function(){return this.$.input},set _inputValue(e){this.inputElement.bindValue=e},get _inputValue(){return this.inputElement.bindValue}});</script>
+  <script>Polymer({is:"vaadin-date-picker",behaviors:[vaadin.elements.datepicker.DatePickerBehavior],properties:{autoValidate:{type:Boolean,value:!1},disabled:{type:Boolean,value:!1,reflectToAttribute:!0},readonly:{type:Boolean,value:!1,reflectToAttribute:!0}},_getValidity:function(){return this.inputElement.validate()},_clear:function(e){e.stopPropagation(),this.value="",this.close()},_toggle:function(e){e.stopPropagation(),this[this.$.dropdown.opened?"close":"open"]()},_tabindex:function(e){return e?-1:0},_input:function(){return this.$.input},set _inputValue(e){this.inputElement.bindValue=e},get _inputValue(){return this.inputElement.bindValue}});</script>
 </dom-module>
 </body></html>
