@@ -15,13 +15,13 @@
             </div>
             <paper-input label="E.g. AAPL or GOOGL" id="symbol" autocapitalize="" autofocus="" maxlength="12" minlength="1" pattern="[a-ZA-Z0-9]" required="" error-message="Invalid stock symbol"></paper-input>
             <div class="buttons">
-                <paper-button dialog-dismiss="">Cancel</paper-button>
+                <paper-button on-tap="_close">Cancel</paper-button>
                 <paper-button class="primary" on-tap="_confirmed" raised="">Accept</paper-button>
             </div>
         </paper-dialog>
     </template>
 
     
-    <script>Polymer({is:"sw-add-stock-dialog",_confirmed:function(){if(this.$.symbol.validate()){var s=this.$.symbol.value.toUpperCase();this.fire("symbol-added",{symbol:s}),this.$.dialog.close()}}});</script>
+    <script>Polymer({is:"sw-add-stock-dialog",_confirmed:function(e){if(this.$.symbol.validate()){e.preventDefault();var o=this.$.symbol.value.toUpperCase();this.fire("symbol-added",{symbol:o}),this.$.dialog.close()}},_close:function(e){e.preventDefault(),this.$.dialog.close()}});</script>
 
 </dom-module></body></html>
